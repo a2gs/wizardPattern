@@ -65,7 +65,7 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 	 * func2
 	 */
 
-	char * func1(void *data)
+	const char * func1(void *data)
 	{
 		printf("Na funcao 1\n");
 
@@ -75,13 +75,13 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 			return("FUNCAO2");
 	}
 
-	char * func2(void *data)
+	const char * func2(void *data)
 	{
 		printf("Na funcao 2\n");
 		return("END");
 	}
 
-	char * func3(void *data)
+	const char * func3(void *data)
 	{
 		printf("Na funcao 3 [%d]\n", *(int *)data);
 		*(int *)data = 8;
@@ -89,7 +89,7 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 		return("FUNCAO4");
 	}
 
-	char * func4(void *data)
+	const char * func4(void *data)
 	{
 		printf("Na funcao 4 [%d]\n", *(int *)data);
 
