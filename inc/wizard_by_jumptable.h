@@ -17,8 +17,8 @@
  */
 
 
-#ifndef __A2GS_TOOLBOX_WIZARD_JUMPTABLE_H__
-#define __A2GS_TOOLBOX_WIZARD_JUMPTABLE_H__
+#ifndef __A2GS_TOOLBOX_WIZARDJUMPTABLE_H__
+#define __A2GS_TOOLBOX_WIZARDJUMPTABLE_H__
 
 
 /* *** INCLUDES ************************************************************************ */
@@ -28,16 +28,16 @@
 
 
 /* *** DATA TYPES ********************************************************************** */
-typedef char * (*funcAddr_t) (void *);
+typedef char * (*a2gs_ToolBox_WizardJumpTableFunc_t) (void *);
 
-typedef struct _funcJT{
-	funcAddr_t func;
+typedef struct _a2gs_ToolBox_WizardJumpTable_t{
+	a2gs_ToolBox_WizardJumpTableFunc_t func;
 	char *name;
-}funcJT;
+}a2gs_ToolBox_WizardJumpTable_t;
 
 
 /* *** INTERFACES / PROTOTYPES ********************************************************* */
-/* int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
+/* int a2gs_ToolBox_WizardJumpTable(funcJT *jumpTable, char *initFuncName, void *data);
  *
  * This function processes the wizard pattern. This follow a sequence of functions defined by user: a flow chart.
  *
@@ -50,13 +50,12 @@ typedef struct _funcJT{
  * 	-1 - A error was found: a function name not registred into 'jumpTable' matrix
  * 	 0 - All flow chat was complete and termineted at a "END" correctly
  */
-int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
+int a2gs_ToolBox_WizardJumpTable(a2gs_ToolBox_WizardJumpTable_t *jumpTable, char *initFuncName, void *data);
 
 
 /* *** EXAMPLE ************************************************************************* */
 #if 0
 	#include <stdio.h>
-	#include <string.h>
 	#include "wizard_by_jumptable.h"
 
 	/* func3
@@ -65,7 +64,7 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 	 * func2
 	 */
 
-	const char * func1(void *data)
+	char * func1(void *data)
 	{
 		printf("Na funcao 1\n");
 
@@ -75,13 +74,13 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 			return("FUNCAO2");
 	}
 
-	const char * func2(void *data)
+	char * func2(void *data)
 	{
 		printf("Na funcao 2\n");
 		return("END");
 	}
 
-	const char * func3(void *data)
+	char * func3(void *data)
 	{
 		printf("Na funcao 3 [%d]\n", *(int *)data);
 		*(int *)data = 8;
@@ -89,7 +88,7 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 		return("FUNCAO4");
 	}
 
-	const char * func4(void *data)
+	char * func4(void *data)
 	{
 		printf("Na funcao 4 [%d]\n", *(int *)data);
 
@@ -99,9 +98,9 @@ int wizard_by_return(funcJT *jumpTable, char *initFuncName, void *data);
 	int main(int argc, char *argv[])
 	{
 		int data = 13;
-		funcJT jumpTable[] = {{func1, "FUNCAO1"}, {func2, "FUNCAO2"}, {func3, "FUNCAO3"}, {func4, "FUNCAO4"}, {NULL, "END"}};
+		a2gs_ToolBox_WizardJumpTable_t jumpTable[] = {{func1, "FUNCAO1"}, {func2, "FUNCAO2"}, {func3, "FUNCAO3"}, {func4, "FUNCAO4"}, {NULL, "END"}};
 
-		if(wizard_by_return(jumpTable, "FUNCAO3", &data) == -1){
+		if(a2gs_ToolBox_WizardJumpTable(jumpTable, "FUNCAO3", &data) == -1){
 			printf("Seguencia de funcao problematica (existe uma funcao nao cadastrada)!\n");
 			return(-1);
 		}
