@@ -17,24 +17,48 @@ RM = rm -rf
 
 OBJL  = $(BINDIR)/liba2gs_ToolBox_Wizard_by_list.o
 OBJJT = $(BINDIR)/liba2gs_ToolBox_Wizard_by_jumptable.o
+OBJR  = $(BINDIR)/liba2gs_ToolBox_Wizard_by_return.o
 
 LIBL  = $(BINDIR)/liba2gs_ToolBox_Wizard_by_list.a
 LIBJT = $(BINDIR)/liba2gs_ToolBox_Wizard_by_jumptable.a
+LIBR  = $(BINDIR)/liba2gs_ToolBox_Wizard_by_return.a
 
-SOURCESL = $(SRCDIR)/wizard_by_list.c
+SOURCESL  = $(SRCDIR)/wizard_by_list.c
 SOURCESJT = $(SRCDIR)/wizard_by_jumptable.c
+SOURCESR  = $(SRCDIR)/wizard_by_return.c
 
-all: $(SOURCES)
-	$(CC) -c -o$(OBJL)  -I$(INCDIR) $(SOURCESL)  $(CFLAGS)
-	$(CC) -c -o$(OBJJT) -I$(INCDIR) $(SOURCESJT) $(CFLAGS)
+SAMPLEDIR = ./samples
 
-	$(AR) rc $(LIBJT) $(OBJJT)
+all: clean list jumptable return
+	-$(RM) $(BINDIR)/*.o
+
+list:
+	@echo
+	@echo === Wizard lib LIST ==============================================
+	$(CC) -c -o$(OBJL) $(SOURCESL) -I$(INCDIR) $(CFLAGS)
 	$(AR) rc $(LIBL) $(OBJL)
-
-	$(RANLIB) $(LIBJT)
 	$(RANLIB) $(LIBL)
 
-	-$(RM) $(BINDIR)/*.o
+jumptable:
+	@echo
+	@echo === Wizard lib JUMPTABLE =========================================
+	$(CC) -c -o$(OBJJT) $(SOURCESJT) -I$(INCDIR) $(CFLAGS)
+	$(AR) rc $(LIBJT) $(OBJJT)
+	$(RANLIB) $(LIBJT)
+
+return:
+	@echo
+	@echo === Wizard lib RETURN ============================================
+	$(CC) -c -o$(OBJR) $(SOURCESR) -I$(INCDIR) $(CFLAGS) -Wno-int-conversion
+	$(AR) rc $(LIBR) $(OBJR)
+	$(RANLIB) $(LIBR)
+
+samples: clean list jumptable return
+	@echo
+	@echo === Building SAMPLES =============================================
+	$(CC) -o $(BINDIR)/sample_List $(SAMPLEDIR)/sample_List.c -I$(INCDIR) -l a2gs_ToolBox_Wizard_by_list -L$(BINDIR) $(CFLAGS)
+	$(CC) -o $(BINDIR)/sample_JumpTable $(SAMPLEDIR)/sample_JumpTable.c -l a2gs_ToolBox_Wizard_by_jumptable -L$(BINDIR) -I$(INCDIR) $(CFLAGS)
+	$(CC) -o $(BINDIR)/sample_Return $(SAMPLEDIR)/sample_Return.c -l a2gs_ToolBox_Wizard_by_return -L$(BINDIR) -I$(INCDIR) $(CFLAGS) -Wno-incompatible-pointer-types
 
 clean:
 	-$(RM) $(BINDIR)/*
