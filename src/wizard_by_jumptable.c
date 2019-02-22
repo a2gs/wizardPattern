@@ -26,7 +26,7 @@
 
 
 /* *** INTERFACES / PROTOTYPES ********************************************************* */
-/* funcAddr_t searchFuncJunpTable(funcJT *jumpTable, char *nameFunc)
+/* a2gs_ToolBox_WizardJumpTableFunc_t searchFuncJunpTable(funcJT *jumpTable, char *nameFunc)
  *
  * This function search the function by 'nameFunc' and return yours address.
  * INPUT:
@@ -35,7 +35,7 @@
  * OUTPUT:
  * 	Address of corresponding function or NULL if not located
  */
-funcAddr_t searchFuncJunpTable(funcJT *jumpTable, char *nameFunc)
+a2gs_ToolBox_WizardJumpTableFunc_t a2gs_ToolBox_searchFuncJumpTable(a2gs_ToolBox_WizardJumpTable_t *jumpTable, char *nameFunc)
 {
 	unsigned int i = 0;
 
@@ -44,18 +44,18 @@ funcAddr_t searchFuncJunpTable(funcJT *jumpTable, char *nameFunc)
 			return(jumpTable[i].func);
 	}
 
-	return((funcAddr_t)NULL);
+	return((a2gs_ToolBox_WizardJumpTableFunc_t) NULL);
 }
 
-int wizard_by_return(funcJT *jumpTable, char *initFunc, void *data)
+int a2gs_ToolBox_WizardJumpTable(a2gs_ToolBox_WizardJumpTable_t *jumpTable, char *initFunc, void *data)
 {
 	char *func = initFunc;
-	funcAddr_t call = NULL;
+	a2gs_ToolBox_WizardJumpTableFunc_t call = NULL;
 
 	while(strcmp(func, "END") != 0){
-		call = searchFuncJunpTable(jumpTable, func);
+		call = a2gs_ToolBox_searchFuncJumpTable(jumpTable, func);
 
-		if(call == (funcAddr_t)NULL)
+		if(call == (a2gs_ToolBox_WizardJumpTableFunc_t)NULL)
 			return(-1);
 
 		func = call(data);
