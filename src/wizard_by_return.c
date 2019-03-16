@@ -39,11 +39,6 @@ int a2gs_ToolBox_WizardReturn(a2gs_ToolBox_WizardReturnFunc_t init, void *data)
 	ret = init;
 
 	for(ret = init; ret != NULL; ret = ret(data));
-	/*
-	do{
-		ret = ret(data);
-	}while(ret != NULL);
-	*/
 
 	return(0);
 }
