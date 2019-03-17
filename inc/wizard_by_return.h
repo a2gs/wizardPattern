@@ -6,7 +6,7 @@
  */
 
 
-/* wizard_by_list.h
+/* wizard_by_return.h
  *
  * A pattern to follow a list of function, in sequence until a error.
  *
