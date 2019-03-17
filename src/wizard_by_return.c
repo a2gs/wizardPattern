@@ -6,7 +6,7 @@
  */
 
 
-/* wizard_by_list.c
+/* wizard_by_return.c
  * This file implement the 'run_functions_in_a_list' facillity.
  *
  *  Who     | When       | What
