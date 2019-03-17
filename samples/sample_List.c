@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "wizard_by_list.h"
 
-int f1(void *a){
+int f1(void *a)
+{
 	/* do some thing... */
 	printf("[%s]\n", (char *)a);
 	return(1); 
