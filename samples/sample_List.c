@@ -7,7 +7,8 @@ int f1(void *a){
 	return(1); 
 }
 
-int f2(void *a){
+int f2(void *a)
+{
 	/* do some thing... */
 	printf("[%s]\n", (char *)a);
 	return(1);  
