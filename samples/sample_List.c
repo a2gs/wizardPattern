@@ -25,7 +25,7 @@ int f4(void *a){
 	return(-1); 
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	char buff[10] = "abc";
 	unsigned int step = 0;
