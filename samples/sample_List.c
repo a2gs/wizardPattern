@@ -43,5 +43,5 @@ int main(int argc, char *argv[])
 		printf("Executed all functions\n");
 	printf("Executation goes to step: [%d] and return [%d]\n", step, last_ret);
 
-	return(1);
+	return(0);
 }
