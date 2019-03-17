@@ -22,7 +22,8 @@ int f3(void *a)
 	return(-1); /* ERROR Here!!! */
 }
 
-int f4(void *a){
+int f4(void *a)
+{
 	/* do some thing... */
 	printf("[%s]\n", (char *)a);
 	return(-1); 
