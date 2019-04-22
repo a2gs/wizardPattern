@@ -1,7 +1,7 @@
 /* Andre Augusto Giannotti Scota (a2gs)
  * andre.scota@gmail.com
  *
- * Public Domain
+ * MIT License
  *
  */
 
